@@ -3,7 +3,11 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
+
+server.listen(port, () => {
+    console.log("App is running on port " + port);
+});
 
 const path = require("path")
 
