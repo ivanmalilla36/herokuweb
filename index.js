@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
+const port = process.env.PORT || 3678;
 
 mongoose.connect('mongodb://egghunt3r:egghunt3r1994@ds223653.mlab.com:23653/cursofavoritos',(err,res)=>{
 	console.log("base de datos iniciada")
@@ -18,4 +19,3 @@ mongoose.connect('mongodb://egghunt3r:egghunt3r1994@ds223653.mlab.com:23653/curs
 })
 
 const app = require('./app');
-const port = 3678;
