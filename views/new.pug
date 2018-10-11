@@ -1,0 +1,14 @@
+extends layout
+block content
+	form(method='POST', action='/api/favorito')
+		.form-group
+		label(for='exampleInputEmail1') title
+		input#exampleInputEmail1.form-control(name="title", aria-describedby='emailHelp', placeholder='Enter Title')
+		.form-group
+		label(for='exampleInputEmail1') description
+		input#exampleInputEmail1.form-control(name="description", aria-describedby='emailHelp', placeholder='Enter Description')
+		.form-group
+		label(for='exampleInputEmail1') URL
+		input#exampleInputEmail1.form-control(name="url", aria-describedby='emailHelp', placeholder='Enter URL')
+		button.btn.btn-dark(type='submit') Guardar
+

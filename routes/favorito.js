@@ -18,4 +18,6 @@ api.delete('/favorito/:id?', FavoritoController.deleteFavorito)
 
 api.get('/favoritos', FavoritoController.getFavoritos)
 
+api.get('/newfavorito', FavoritoController.newFavorito)
+
 module.exports = api;

@@ -33,7 +33,8 @@ Favorito.find({}, {_id:0 ,__v: 0}).sort({ title : 1}).exec(function(err, favorit
 		if(!favoritos){
 			res.status(404).send("no ahi marcadores")
 		}
-		res.status(200).send({favoritos})
+		// res.status(200).send({favoritos})
+		res.render('index.pug', {favoritos:favoritos, title: "mis favoritos"})
 	});
 
 	
@@ -54,7 +55,8 @@ function saveFavorito(req,res){
 			res.send({message: "No se pudo guardar el registro"})
 		}
 		else {
-			res.send({message:favoritoStored})
+			// res.send({message:favoritoStored})
+			res.redirect("/api/favoritos")
 		}
 	})
 }
@@ -85,11 +87,16 @@ function deleteFavorito(req,res){
 	})
 }
 
+function newFavorito(req,res){
+	res.render('new.pug', {title: "nuevo favorito"})
+}
+
 module.exports = {
 	prueba,
 	getFavorito,
 	saveFavorito,
 	updateFavorito,
 	deleteFavorito,
-	getFavoritos
+	getFavoritos,
+	newFavorito
 }
