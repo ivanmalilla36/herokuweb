@@ -14,10 +14,12 @@ api.post('/favorito', FavoritoController.saveFavorito)
 
 api.put('/favorito/:id', FavoritoController.updateFavorito)
 
-api.delete('/favorito/:id?', FavoritoController.deleteFavorito)
+api.get('/deleteFavorito/:id?', FavoritoController.deleteFavorito)
 
 api.get('/favoritos', FavoritoController.getFavoritos)
 
 api.get('/newfavorito', FavoritoController.newFavorito)
+
+api.get('/FavoritosMobile', FavoritoController.FavoritosMobile)
 
 module.exports = api;

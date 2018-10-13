@@ -18,14 +18,16 @@ function getFavorito(req,res){
 	Favorito.findById(favoritoID, function(err,favorito){
 		if (err) {
 			res.status(500).send("Error al devolver marcador")
+			// console.log(err)
 		}else {
-		res.status(200).send({data: favorito})
+		// res.status(200).send({data: favorito})
+		res.render('show.pug', {title: "show favorito", data: favorito})
 		}
 	})
 }
 
 function getFavoritos(req,res){
-Favorito.find({}, {_id:0 ,__v: 0}).sort({ title : 1}).exec(function(err, favoritos){ 
+Favorito.find({}).sort({title : 1}).exec(function(err, favoritos){ 
 		if (err) {
 			throw err;
 			res.status(500).send("error")
@@ -36,9 +38,6 @@ Favorito.find({}, {_id:0 ,__v: 0}).sort({ title : 1}).exec(function(err, favorit
 		// res.status(200).send({favoritos})
 		res.render('index.pug', {favoritos:favoritos, title: "mis favoritos"})
 	});
-
-	
-
 }
 
 function saveFavorito(req,res){
@@ -75,20 +74,63 @@ function updateFavorito(req,res){
 	})	
 }
 
-function deleteFavorito(req,res){
-	const favoritoID = req.params.id
-	Favorito.findOneAndRemove(favoritoID, function(err,favoritoRemoved){
-		if (err) {
-			res.status(500).send("error en el servidor")
-		}
-		else{
-			res.send({data: favoritoRemoved})
-		}
-	})
+// function deleteFavorito(req,res){
+// 	const favoritoID = req.params.id
+// 	Favorito.remove(favoritoID, function(err,favoritoRemoved){
+// 		if (err) {
+// 			res.status(500).send("error en el servidor")
+// 		}
+// 		else{
+// 			// res.send({data: favoritoRemoved})
+// 			res.redirect("/api/favoritos")
+// 		}
+// 	})
+// }
+
+function deleteFavorito(req, res){
+    var favoritoId = req.params.id;
+    Favorito.findById(favoritoId, function (err,favorito) {
+        if (err){
+            res.status(500).send({message:"Error al devolver favorito"});
+        }
+
+        if(!favorito){
+            res.status(404).send({message:"No hay favorito"});
+
+        }else{
+            favorito.remove(err => {
+                if(err){
+                    res.status(500).send({message:"No se ha podido eliminar"});
+
+                }else{
+                    res.redirect("/api/favoritos")
+                //res.status(200).send({message:"Marcador eliminado correctamente"});
+
+            }
+                
+            });
+            
+        }
+        
+    });
+    
 }
 
 function newFavorito(req,res){
 	res.render('new.pug', {title: "nuevo favorito"})
+}
+
+function FavoritosMobile(req,res){
+Favorito.find({}).sort({title : 1}).exec(function(err, favoritos){ 
+		if (err) {
+			throw err;
+			res.status(500).send("error")
+		}
+		if(!favoritos){
+			res.status(404).send("no ahi marcadores")
+		}
+		res.status(200).send({favoritos})
+	});
 }
 
 module.exports = {
@@ -98,5 +140,6 @@ module.exports = {
 	updateFavorito,
 	deleteFavorito,
 	getFavoritos,
-	newFavorito
+	newFavorito,
+	FavoritosMobile
 }

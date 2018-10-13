@@ -1,0 +1,14 @@
+extends layout
+block content
+	table.table.table-dark
+		thead
+			tr
+				th(scope='col') titulo
+				th(scope='col') description
+				th(scope='col') url
+		tbody
+			tr
+				td= data.title
+				td= data.description
+				td= data.url
+	a.btn.btn-outline-primary(href='/api/favoritos', type='button') regresar

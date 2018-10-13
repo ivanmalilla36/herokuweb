@@ -7,13 +7,17 @@ block content
         th(scope='col') titulo
         th(scope='col') description
         th(scope='col') url
+        th(scope='col') Eliminar
+        th(scope='col') Mostrar
     tbody
       each val in favoritos
         tr
           td= val.title
           td= val.description
           td= val.url
+          td
+              a.btn.btn-outline-primary(href='deleteFavorito/'+val.id, type='button') Eliminar
+          td
+              a.btn.btn-outline-primary(href='favorito/'+val.id, type='button') Mostrar
+
   a.btn.btn-outline-primary(href='/api/newfavorito', type='button') Nuevo
-
-
-
